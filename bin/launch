@@ -1,0 +1,23 @@
+#!/bin/bash
+export RUSTUP_TOOLCHAIN="nightly"
+
+function on_kill {
+  [ -n "$TSC_PID" ] && kill $TSC_PID
+  exit 1
+}
+
+trap on_kill SIGINT SIGTERM SIGKILL
+
+cargo watch \
+  -w ts/ \
+  -w tsconfig.json \
+  -s "node_modules/.bin/tsc-bundle tsconfig.json" &
+TSC_PID=$!
+
+cargo watch \
+  -w src/ \
+  -w Cargo.toml \
+  -w Rocket.toml \
+  -x run
+
+[ -n "$TSC_PID" ] && kill $TSC_PID

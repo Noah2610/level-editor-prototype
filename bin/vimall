@@ -1,0 +1,4 @@
+#!/usr/bin/bash
+files=("Cargo.toml" "Rocket.toml" "vimrc" "bin/launch" "bin/vimall")
+files_find=($( find src/ static/ ts/ -iname "*.rs" -o -iname "*.ts" -o -iname "*.html" -o -iname "*.css" ))
+vim ${files[@]} ${files_find[@]}
