@@ -10,3 +10,12 @@
   background-color: rgba(128, 128, 128, 128);
   position: absolute;
 }
+
+#block-template {
+  display: none;
+}
+
+.block {
+  display:  inline;
+  position: absolute;
+}

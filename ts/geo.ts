@@ -17,6 +17,14 @@ export class Point {
   set_y(val: number) {
     this.y = val;
   }
+
+  clone(): Point {
+    return new Point(this.x, this.y);
+  }
+
+  is_same(other: Point): boolean {
+    return this.x == other.x && this.y == other.y;
+  }
 }
 
 export class Size {
@@ -37,5 +45,13 @@ export class Size {
   }
   set_h(h: number) {
     this.h = h;
+  }
+
+  clone(): Size {
+    return new Size(this.w, this.h);
+  }
+
+  is_same(other: Size): boolean {
+    return this.w == other.w && this.h == other.h;
   }
 }

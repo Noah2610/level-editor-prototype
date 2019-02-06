@@ -1,18 +1,25 @@
-import { Point, Size } from "./geo";
+import { Point, Size       } from "./geo";
+import { Block, BlockParam } from "./block";
+import { JQElement         } from "./main";
 
-type JQElement = JQuery<HTMLElement>;
+const SETTINGS = {
+  size: new Size(32, 32)
+};
 
 export class Cursor {
   position: Point;
-  element:  JQElement;
   size:     Size;
+  element:  JQElement;
 
-  constructor() {
+  constructor(x: number, y: number) {
     this.element = $("#cursor");
     this.position = new Point();
-    this.set_pos(0, 0);
+    this.set_pos(x, y);
     this.size = new Size();
-    this.set_size(32, 32);
+    this.set_size(
+      SETTINGS.size.w,
+      SETTINGS.size.h,
+    );
   }
 
   el(): JQElement {
@@ -33,5 +40,13 @@ export class Cursor {
 
   move_to(pos: Point) {
     this.set_pos(pos.x, pos.y);
+  }
+
+  block(): Block {
+    let param = new BlockParam();
+    param.position = this.position.clone();
+    param.size     = this.size.clone();
+    param.color    = this.element.css("background-color");
+    return new Block(param);
   }
 }
